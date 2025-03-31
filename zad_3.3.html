@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data i Czas - Kartka Kalendarza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .calendar-card {
+            width: 300px;
+            height: 400px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .date {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .time {
+            font-size: 24px;
+            color: #666;
+        }
+
+        .day {
+            font-size: 18px;
+            color: #888;
+        }
+
+        .month-year {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .separator {
+            border-top: 1px solid #eee;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-card">
+        <div class="month-year" id="month-year"></div>
+        <div class="date" id="current-date"></div>
+        <div class="day" id="day-of-week"></div>
+        <div class="separator"></div>
+        <div class="time" id="current-time"></div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+
+            const dayOfWeek = now.toLocaleString('pl-PL', { weekday: 'long' });
+            const date = now.getDate();
+            const month = now.toLocaleString('pl-PL', { month: 'long' });
+            const year = now.getFullYear();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            // Aktualizacja elementów na stronie
+            document.getElementById('month-year').textContent = `${month} ${year}`;
+            document.getElementById('current-date').textContent = date;
+            document.getElementById('day-of-week').textContent = dayOfWeek;
+            document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Aktualizacja co sekundę
+        setInterval(updateDateTime, 1000);
+        updateDateTime();  // Uruchomienie funkcji od razu po załadowaniu strony
+    </script>
+</body>
+</html>
